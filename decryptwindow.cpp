@@ -1,6 +1,7 @@
 #include "decryptwindow.h"
 #include "ui_decryptwindow.h"
 #include <QFileDialog.h>
+#include <QMessageBox>
 
 DecryptWindow::DecryptWindow(QWidget *parent) :
     QDialog(parent),
@@ -39,5 +40,30 @@ void DecryptWindow::on_pushButton_4_clicked()
     fileNameKey = QFileDialog::getOpenFileName(this, "Выбрать файл с ключами", "D:\\");
     //qDebug() << fileName;
     ui->textBrowser_3->setText(fileNameKey);
+}
+
+
+void DecryptWindow::on_pushButton_3_clicked()
+{
+    QString fileName = ui->textBrowser->toPlainText(); // Получаем имя файла для расшифровки из QTextBrowser
+    QString fileNameKey = ui->textBrowser_3->toPlainText(); // Получаем имя файла с ключами из QTextBrowser
+
+    try {
+        QFile file(fileName); // Открываем файл для чтения
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            throw std::runtime_error("Не удалось открыть файл для расшифровки."); // Генерируем исключение, если файл не удалось открыть
+        }
+
+        QFile fileKey(fileNameKey); // Открываем файл для чтения
+        if (!fileKey.open(QIODevice::ReadOnly | QIODevice::Text)) {
+            throw std::runtime_error("Не удалось открыть файл с ключами."); // Генерируем исключение, если файл не удалось открыть
+        }
+
+        file.close(); // Закрываем файл после использования
+        fileKey.close(); // Закрываем файл после использования
+    }
+    catch (const std::exception& e) {
+        QMessageBox::critical(this, "Ошибка", e.what());
+    }
 }
 

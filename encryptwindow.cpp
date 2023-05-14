@@ -1,6 +1,7 @@
 #include "encryptwindow.h"
 #include "ui_encryptwindow.h"
 #include "QFileDialog"
+#include <QMessageBox>
 
 
 
@@ -37,26 +38,6 @@ void EncryptWindow::on_pushButton_2_clicked()
 
 void EncryptWindow::on_pushButton_3_clicked()
 {
-    QString fileName = ui->textBrowser->toPlainText(); // Получаем имя файла из QTextBrowser
 
-    try {
-        QFile file(fileName); // Открываем файл для чтения
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            throw std::runtime_error("Не удалось открыть файл."); // Генерируем исключение, если файл не удалось открыть
-        }
-
-        QTextStream in(&file);
-        QString key1, key2;
-        in >> key1 >> key2; // Считываем два ключа из файла
-
-        // Ваши действия с ключами
-        qDebug() << "Ключ 1:" << key1;
-            qDebug() << "Ключ 2:" << key2;
-
-                                         file.close(); // Закрываем файл после использования
-    }
-    catch (const std::exception& e) {
-        qCritical() << "Произошла ошибка:" << e.what();
-    }
 }
 
