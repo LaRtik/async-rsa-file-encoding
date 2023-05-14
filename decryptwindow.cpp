@@ -20,7 +20,7 @@ void DecryptWindow::on_pushButton_clicked()
     QString fileName;
     fileName = QFileDialog::getOpenFileName(this, "Выбрать файл для расшифрования", "C:\\");
     //qDebug() << fileName;
-    ui->label->setText(fileName);
+    ui->textBrowser->setText(fileName);
 }
 
 
@@ -29,6 +29,6 @@ void DecryptWindow::on_pushButton_2_clicked()
     QString folderName;
     folderName = QFileDialog::getExistingDirectory(this, "Выбрать папку назначения", "C:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     //qDebug() << fileName;
-    ui->label_2->setText(folderName);
+    ui->textBrowser_2->setText(folderName);
 }
 
