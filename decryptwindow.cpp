@@ -18,7 +18,7 @@ DecryptWindow::~DecryptWindow()
 void DecryptWindow::on_pushButton_clicked()
 {
     QString fileName;
-    fileName = QFileDialog::getOpenFileName(this, "Выбрать файл для расшифрования", "C:\\");
+    fileName = QFileDialog::getOpenFileName(this, "Выбрать файл для расшифрования", "D:\\");
     //qDebug() << fileName;
     ui->textBrowser->setText(fileName);
 }
@@ -27,8 +27,17 @@ void DecryptWindow::on_pushButton_clicked()
 void DecryptWindow::on_pushButton_2_clicked()
 {
     QString folderName;
-    folderName = QFileDialog::getExistingDirectory(this, "Выбрать папку назначения", "C:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    folderName = QFileDialog::getExistingDirectory(this, "Выбрать папку назначения", "D:\\", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     //qDebug() << fileName;
     ui->textBrowser_2->setText(folderName);
+}
+
+
+void DecryptWindow::on_pushButton_4_clicked()
+{
+    QString fileNameKey;
+    fileNameKey = QFileDialog::getOpenFileName(this, "Выбрать файл с ключами", "D:\\");
+    //qDebug() << fileName;
+    ui->textBrowser_3->setText(fileNameKey);
 }
 
