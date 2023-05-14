@@ -12,7 +12,6 @@
 #include <thread>
 #include <QDebug>
 
-
 class RSA
 {
 public:
@@ -35,6 +34,11 @@ public:
     std::vector<largeIntegerType> confuseData(std::vector <std::string> data, std::pair<largeIntegerType, largeIntegerType>_anyKey);
 
     std::vector <std::string> deconfuseData(std::vector <largeIntegerType> confusedData, std::pair<largeIntegerType, largeIntegerType> _anyKey);
+
+    std::vector<long long> encr(const std::vector<long long> &data,
+                                int l,
+                                int r,
+                                std::pair<largeIntegerType, largeIntegerType> _private);
 
 };
 
