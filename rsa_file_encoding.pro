@@ -12,6 +12,8 @@ LIBS += -fopenmp
 
 SOURCES += \
     binaryfile.cpp \
+    decryptwindow.cpp \
+    encryptwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     rsa.cpp \
@@ -20,12 +22,16 @@ SOURCES += \
 
 HEADERS += \
     binaryfile.h \
+    decryptwindow.h \
+    encryptwindow.h \
     mainwindow.h \
     rsa.h \
     rsaparallel.h \
     utils.h
 
 FORMS += \
+    decryptwindow.ui \
+    encryptwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.
