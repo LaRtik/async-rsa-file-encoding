@@ -53,8 +53,9 @@ RSA::encryptData(largeIntegerType data,
 
 bool RSA::cryptMessage(
     std::vector<largeIntegerType> data,
-    std::pair<largeIntegerType, largeIntegerType> _publicKey) {
-  std::ofstream fout("crypted_data", std::ios::out);
+    std::pair<largeIntegerType, largeIntegerType> _publicKey,
+    std::string path) {
+  std::ofstream fout(path + "crypted_data", std::ios::out);
   char splitter = '\n';
 
   for (auto element : data) {
@@ -65,7 +66,6 @@ bool RSA::cryptMessage(
   }
 
   fout.close();
-
   return true;
 }
 

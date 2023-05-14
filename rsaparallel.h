@@ -10,8 +10,8 @@ class RSAParallel
 public:
     RSA rsa = RSA();
     RSA::Keys keys = rsa.calculateRSAKeys();
-    bool crypt(std::vector<std::string> splitted_data);
-    std::vector <std::string> decrypt(const std::string &path);
+    bool crypt(std::vector<std::string> splitted_data, const std::string &path = "");
+    std::vector <std::string> decrypt(const std::string &path_to_data, const std::string &path_to_key);
 };
 
 #endif // RSAPARALLEL_H
