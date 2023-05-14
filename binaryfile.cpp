@@ -36,6 +36,7 @@ std::vector <char> BinaryFile::read_file(const std::string &path)
         //qDebug() << int(c);
         data.push_back(c);
     }
+    fin.close();
     return data;
 }
 

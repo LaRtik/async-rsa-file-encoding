@@ -12,10 +12,20 @@ bool RSAParallel::crypt(const std::string &file_path, const std::string &save_pa
     BinaryFile bin;
     auto data = bin.read_file(file_path);
     auto splitted_data = bin.split_data(data);
+
+    data.clear();
+    data.shrink_to_fit();
+
     RSA rsa;
     RSA::Keys keys = rsa.calculateRSAKeys();
     auto confused_data = rsa.confuseData(splitted_data, keys._public);
+    splitted_data.clear();
+    splitted_data.shrink_to_fit();
+
     rsa.cryptMessage(confused_data, keys._public, save_path);
+
+    confused_data.clear();
+    confused_data.shrink_to_fit();
 
     // add private key to the same dir
     std::ofstream fout(save_path + "/private.txt", std::ios::out);
@@ -66,9 +76,13 @@ bool RSAParallel::decrypt(const std::string &file_path,
     //for (auto s : crypted_data)
     //    qDebug() << s;
     auto data = rsa.deconfuseData(confused_data, _private);
+    confused_data.clear();
+    confused_data.shrink_to_fit();
 
     BinaryFile bin;
     auto desplitted = bin.desplit_data(data);
+    data.clear();
+    data.shrink_to_fit();
     bin.write_file(desplitted, save_path);
     return true;
 }

@@ -29,11 +29,11 @@ public:
 
     bool cryptMessage(std::vector <largeIntegerType> data, std::pair<largeIntegerType, largeIntegerType> _publicKey, std::string path = "");
 
-    std::vector <largeIntegerType> encryptMessage(std::vector<largeIntegerType> data, std::pair<largeIntegerType, largeIntegerType> _privateKey);
+    std::vector <largeIntegerType> encryptMessage(const std::vector<largeIntegerType> &data, std::pair<largeIntegerType, largeIntegerType> _privateKey);
 
-    std::vector<largeIntegerType> confuseData(std::vector <std::string> data, std::pair<largeIntegerType, largeIntegerType>_anyKey);
+    std::vector<largeIntegerType> confuseData(const std::vector <std::string> &data, std::pair<largeIntegerType, largeIntegerType>_anyKey);
 
-    std::vector <std::string> deconfuseData(std::vector <largeIntegerType> confusedData, std::pair<largeIntegerType, largeIntegerType> _anyKey);
+    std::vector <std::string> deconfuseData(const std::vector <largeIntegerType> &confusedData, std::pair<largeIntegerType, largeIntegerType> _anyKey);
 
     std::vector<long long> encr(const std::vector<long long> &data,
                                 int l,

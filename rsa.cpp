@@ -58,7 +58,7 @@ bool RSA::cryptMessage(
   std::ofstream fout(path + "/crypted_data", std::ios::out);
   char splitter = '\n';
 
-  for (auto element : data) {
+  for (const auto &element : data) {
         auto msg = cryptData(element, _publicKey);
         for (const auto &c : std::to_string(msg))
           fout.write(&c, sizeof(c));
@@ -79,7 +79,7 @@ std::vector <long long> RSA::encr(const std::vector <long long> &data, int l, in
 
 
 std::vector<largeIntegerType>
-RSA::encryptMessage(std::vector<largeIntegerType> data,
+RSA::encryptMessage(const std::vector<largeIntegerType> &data,
                     std::pair<largeIntegerType, largeIntegerType> _privateKey) {
   clock_t start, end;
   start = clock();
@@ -114,10 +114,9 @@ RSA::encryptMessage(std::vector<largeIntegerType> data,
 }
 
 std::vector<largeIntegerType>
-RSA::confuseData(std::vector<std::string> data,
+RSA::confuseData(const std::vector<std::string> &data,
                  std::pair<largeIntegerType, largeIntegerType> _anyKey) {
   std::vector<largeIntegerType> confusedData;
-  confusedData.reserve(data.size());
   if (data.size() == 0) {
         return confusedData;
   }
@@ -132,11 +131,11 @@ RSA::confuseData(std::vector<std::string> data,
 }
 
 std::vector<std::string>
-RSA::deconfuseData(std::vector<largeIntegerType> confusedData,
+RSA::deconfuseData(const std::vector<largeIntegerType> &confusedData,
                    std::pair<largeIntegerType, largeIntegerType> _anyKey) {
   std::vector<std::string> data;
 
-  for (auto d : confusedData) {
+  for (const auto &d : confusedData) {
         data.push_back(std::to_string(d));
   }
 
