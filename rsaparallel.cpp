@@ -18,7 +18,7 @@ bool RSAParallel::crypt(const std::string &file_path, const std::string &save_pa
     rsa.cryptMessage(confused_data, keys._public, save_path);
 
     // add private key to the same dir
-    std::ofstream fout(save_path + "private.txt", std::ios::out);
+    std::ofstream fout(save_path + "/private.txt", std::ios::out);
     fout << keys._private.first;
     fout << "\n";
     fout << keys._private.second;

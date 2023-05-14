@@ -31,9 +31,9 @@ int main(int argc, char *argv[])
     qDebug() << "End";
     */
 
-    RSAParallel crypting;
-    crypting.crypt("in.pdf", "");
-    crypting.decrypt("crypted_data", "private.txt", "");
+   // RSAParallel crypting;
+   // crypting.crypt("in.pdf", "");
+   // crypting.decrypt("crypted_data", "private.txt", "");
 
     return a.exec();
 }
