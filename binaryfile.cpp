@@ -40,10 +40,10 @@ std::vector <char> BinaryFile::read_file(const std::string &path)
 }
 
 
-void BinaryFile::write_file(const std::vector<char> &data)
+void BinaryFile::write_file(const std::vector<char> &data, const std::string &out_dir)
 {
     std::ofstream fout;
-    std::string path = "out";
+    std::string path = out_dir + "out";
     for (int i = 0; i < 23; i++)
     {
         if (data[i] != '0') path += data[i];

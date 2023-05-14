@@ -1,21 +1,24 @@
 #include "rsaparallel.h"
+#include "rsa.h"
 #include <QDebug>
 #include <cmath>
 #include <thread>
 #include <future>
 #include <fstream>
+#include "binaryfile.h"
 
-
-bool RSAParallel::crypt(std::vector<std::string> splitted_data, const std::string &path)
+bool RSAParallel::crypt(const std::string &file_path, const std::string &save_path)
 {
-    //for (auto s : splitted_data)
-    //    qDebug() << s;
+    BinaryFile bin;
+    auto data = bin.read_file(file_path);
+    auto splitted_data = bin.split_data(data);
+    RSA rsa;
+    RSA::Keys keys = rsa.calculateRSAKeys();
     auto confused_data = rsa.confuseData(splitted_data, keys._public);
-    qDebug() << "Data confused!";
-    auto crypted_data = rsa.cryptMessage(confused_data, keys._public);
+    rsa.cryptMessage(confused_data, keys._public, save_path);
 
     // add private key to the same dir
-    std::ofstream fout(path + "private.txt", std::ios::out);
+    std::ofstream fout(save_path + "private.txt", std::ios::out);
     fout << keys._private.first;
     fout << "\n";
     fout << keys._private.second;
@@ -24,9 +27,11 @@ bool RSAParallel::crypt(std::vector<std::string> splitted_data, const std::strin
     return true;
 }
 
-std::vector <std::string> RSAParallel::decrypt(const std::string &path_to_data, const std::string &path_to_key)
+bool RSAParallel::decrypt(const std::string &file_path,
+             const std::string &key_path,
+             const std::string &save_path)
 {
-    std::ifstream fin(path_to_data, std::ios::in);
+    std::ifstream fin(file_path, std::ios::in);
     char splitter = '\n';
     std::string acumm;
     std::vector<largeIntegerType> crypted_data;
@@ -50,17 +55,22 @@ std::vector <std::string> RSAParallel::decrypt(const std::string &path_to_data, 
     fin.close();
 
 
-    std::ifstream kin(path_to_key, std::ios::in);
+    std::ifstream kin(key_path, std::ios::in);
     std::pair<largeIntegerType, largeIntegerType> _private;
     kin >> _private.first;
     kin >> _private.second;
+    RSA rsa;
     auto confused_data = rsa.encryptMessage(crypted_data, _private);
 
     //qDebug() << "Encrypted confused data";
     //for (auto s : crypted_data)
     //    qDebug() << s;
     auto data = rsa.deconfuseData(confused_data, _private);
-    return data;
+
+    BinaryFile bin;
+    auto desplitted = bin.desplit_data(data);
+    bin.write_file(desplitted, save_path);
+    return true;
 }
 
 

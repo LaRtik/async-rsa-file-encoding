@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "binaryfile.h"
 #include "rsaparallel.h"
 #include <filesystem>
 #include <QApplication>
@@ -31,6 +30,10 @@ int main(int argc, char *argv[])
     //bin.write_file(result);
     qDebug() << "End";
     */
+
+    RSAParallel crypting;
+    crypting.crypt("in.pdf", "");
+    crypting.decrypt("crypted_data", "private.txt", "");
 
     return a.exec();
 }

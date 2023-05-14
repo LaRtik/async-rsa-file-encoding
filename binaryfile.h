@@ -12,7 +12,7 @@ class BinaryFile
 public:
     BinaryFile();
     std::vector <char> read_file(const std::string &path);
-    void write_file(const std::vector<char>& data);
+    void write_file(const std::vector<char>& data, const std::string &out_dir);
     std::vector <std::string> split_data(const std::vector <char> &data);
     std::vector<char> desplit_data(const std::vector<std::string> &splitted_data);
 };
