@@ -94,19 +94,18 @@ RSA::encryptMessage(const std::vector<largeIntegerType> &data,
           r = data.size() - 1;
         futures.push_back(
             std::async(std::launch::async, &RSA::encr, this, data, l, r, _privateKey));
+
   }
-
-
-
   for (int i = 0; i < int(futures.size()); i++) {
       auto res = futures[i].get();
       for (const auto &el : res) encryptedMessage.push_back(el);
   }
 
-  /*for (const auto &d : data) {
+  /*
+  for (const auto &d : data) {
         encryptedMessage.push_back(encryptData(d, _privateKey));
-  }*/
-
+  }
+*/
   end = clock();
   qDebug() << double(end - start) / CLOCKS_PER_SEC;
 

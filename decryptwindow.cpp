@@ -75,7 +75,9 @@ void DecryptWindow::on_pushButton_3_clicked()
             informationBox.setWindowTitle("Ожидайте");
             informationBox.setText("В данный момент происходит расшифровка вашего файла. Подождите пожалуйста.");
             informationBox.addButton(QMessageBox::Ok);
+            informationBox.setVisible(true);
             informationBox.show();
+            QCoreApplication::processEvents();
 
             RSAParallel rsa;
             rsa.decrypt(fileName.toStdString(), fileNameKey.toStdString(), folderName.toStdString());

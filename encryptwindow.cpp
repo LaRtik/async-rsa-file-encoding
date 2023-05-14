@@ -5,6 +5,7 @@
 #include <rsaparallel.h>
 #include <QString>
 #include <string>
+#include <QThread>
 
 
 EncryptWindow::EncryptWindow(QWidget *parent) :
@@ -59,7 +60,9 @@ void EncryptWindow::on_pushButton_3_clicked()
             informationBox.setWindowTitle("Ожидайте");
             informationBox.setText("В данный момент происходит шифрование вашего файла. Подождите пожалуйста.");
             informationBox.addButton(QMessageBox::Ok);
+            informationBox.setVisible(true);
             informationBox.show();
+            QCoreApplication::processEvents();
 
             RSAParallel rsa;
             rsa.crypt(fileName.toStdString(), folderName.toStdString());
