@@ -15,6 +15,11 @@ public:
     explicit DecryptWindow(QWidget *parent = nullptr);
     ~DecryptWindow();
 
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::DecryptWindow *ui;
 };
