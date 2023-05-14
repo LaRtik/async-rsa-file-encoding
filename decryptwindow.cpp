@@ -2,6 +2,10 @@
 #include "ui_decryptwindow.h"
 #include <QFileDialog.h>
 #include <QMessageBox>
+#include <rsaparallel.h>
+#include <QString>
+#include <string>
+
 
 DecryptWindow::DecryptWindow(QWidget *parent) :
     QDialog(parent),
@@ -45,25 +49,56 @@ void DecryptWindow::on_pushButton_4_clicked()
 
 void DecryptWindow::on_pushButton_3_clicked()
 {
+    bool success = false;
     QString fileName = ui->textBrowser->toPlainText(); // Получаем имя файла для расшифровки из QTextBrowser
     QString fileNameKey = ui->textBrowser_3->toPlainText(); // Получаем имя файла с ключами из QTextBrowser
+    QString folderName = ui->textBrowser_2->toPlainText(); // Получаем имя файла с ключами из QTextBrowser
 
-    try {
+    try
+    {
         QFile file(fileName); // Открываем файл для чтения
-        if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
             throw std::runtime_error("Не удалось открыть файл для расшифровки."); // Генерируем исключение, если файл не удалось открыть
         }
 
         QFile fileKey(fileNameKey); // Открываем файл для чтения
-        if (!fileKey.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        if (!fileKey.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
             throw std::runtime_error("Не удалось открыть файл с ключами."); // Генерируем исключение, если файл не удалось открыть
         }
+
+        try
+        {
+            QMessageBox informationBox;
+            informationBox.setIcon(QMessageBox::Information);
+            informationBox.setWindowTitle("Ожидайте");
+            informationBox.setText("В данный момент происходит расшифровка вашего файла. Подождите пожалуйста.");
+            informationBox.addButton(QMessageBox::Ok);
+            informationBox.show();
+
+            RSAParallel rsa;
+            //rsa.crypt(fileName.toStdString(), folderName.toStdString());
+
+            informationBox.close();
+        }
+        catch (const std::exception& e)
+        {
+            QMessageBox::critical(this, "Ошибка", e.what());
+        }
+
+        file.close(); // Закрываем файл после использования
+        success = true;
 
         file.close(); // Закрываем файл после использования
         fileKey.close(); // Закрываем файл после использования
     }
-    catch (const std::exception& e) {
+    catch (const std::exception& e)
+    {
         QMessageBox::critical(this, "Ошибка", e.what());
     }
+
+    if(success)
+        QMessageBox::information(this, "Успех", "Ваш файл успешно расшифрован и находится по указанному вами пути.");
 }
 
