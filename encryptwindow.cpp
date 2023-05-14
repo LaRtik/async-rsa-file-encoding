@@ -62,7 +62,7 @@ void EncryptWindow::on_pushButton_3_clicked()
             informationBox.show();
 
             RSAParallel rsa;
-            //rsa.decrypt(fileName.toStdString(), folderName.toStdString());
+            rsa.crypt(fileName.toStdString(), folderName.toStdString());
 
             informationBox.close();
         }
